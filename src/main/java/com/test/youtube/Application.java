@@ -2,9 +2,11 @@ package com.test.youtube;
 
 import com.test.youtube.repository.DataHelper;
 import com.test.youtube.repository.UserHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,7 +18,12 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
+@PropertySource("classpath:application.properties")
 public class Application implements AsyncConfigurer {
+    @Value("${users.file}")
+    private String userFileName;
+    @Value("${user_data.file}")
+    private String userDataFileName;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -33,11 +40,11 @@ public class Application implements AsyncConfigurer {
 
     @Bean
     public UserHelper getUserFileWriter() throws IOException {
-        return new UserHelper("./users.txt");
+        return new UserHelper(userFileName);
     }
 
     @Bean
     public DataHelper getUserDataFileWriter() throws IOException {
-        return new DataHelper("./user_data.txt");
+        return new DataHelper(userDataFileName);
     }
 }
