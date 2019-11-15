@@ -15,21 +15,53 @@
 </head>
 <body onload="pullUserParams()">
 <style>
+    body {
+        background-color: #76c35d;
+    }
+
+    .btn {
+        border-radius: 12px;
+        border: none;
+        text-align: center;
+        width: 70%;
+        margin-top: 18px;
+        margin-left: 15%;
+        height: 40px;
+        background-color: #00b242;
+        color: #fff;
+        font-size: 25px;
+    }
+
     #user-setting {
+        border-radius: 12px;
         display: inline-block;
         margin: 32px;
         padding: 12px;
-        background: aliceblue;
+        background: #F8F8F8;
+        font-size: 25px;
     }
+
+    .input-fields {
+        width: 60%;
+        height: 35px;
+        margin-left: 15%;
+        border: 1px solid grey;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        text-align: center;
+        font-size: 20px;
+        display: inline;
+        font-weight: normal;
+    }
+
 </style>
 
 
 <div id="user-setting">
     <div id="username"></div>
     <div>
-        Your Country: <select id="region-select">
-
-
+        Your Country:
+        <br/><select id="region-select" class="input-fields">
         <option value="AF">Afghanistan</option>
         <option value="AX">Åland Islands</option>
         <option value="AL">Albania</option>
@@ -283,7 +315,7 @@
     </div>
 
     <div>
-        Job period: <select id="period-select">
+        Job period:<br/><select id="period-select" class="input-fields">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -346,7 +378,7 @@
         <option value="60">60</option>
     </select>
     </div>
-    <button type="button" onclick="changeParams()">Save</button>
+    <button type="button" class="btn" onclick="changeParams()">Save</button>
 </div>
 
 <div id="activities">
@@ -356,7 +388,6 @@
 
 <script>
     var div = document.getElementById('activities');
-
 
     function changeParams() {
         $.ajax({

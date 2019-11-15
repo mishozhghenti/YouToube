@@ -12,7 +12,7 @@ public class MainScheduler {
     AsyncJobRunner asyncJobRunner;
 
     @Scheduled(fixedDelay = 100)
-    public void process(){
+    public void process() {
         for (Job job : jobRegistry.getJobs()) {
             asyncJobRunner.run(job);
         }

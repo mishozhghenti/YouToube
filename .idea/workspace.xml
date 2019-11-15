@@ -32,8 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML4 File" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -131,11 +131,6 @@
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6cf6a86e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@652dee80" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6cf6a86e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2d8eb1ba" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
@@ -162,7 +157,7 @@
       <workItem from="1573638320772" duration="6388000" />
       <workItem from="1573647603990" duration="735000" />
       <workItem from="1573649471790" duration="230000" />
-      <workItem from="1573649753558" duration="50820000" />
+      <workItem from="1573649753558" duration="53228000" />
     </task>
     <servers />
   </component>
