@@ -1,5 +1,7 @@
 # YouToube
 YouTube Tracker
+# Application-ის გაშვება
+ აპლიკაციის გაშვების მისამართი: http://localhost:8686/index.html
 
 # მონაცემების შენახვა
 
