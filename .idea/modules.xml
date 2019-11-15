@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.iml" filepath="$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.test.mihsoproject.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mihsoproject.iml" filepath="$PROJECT_DIR$/mihsoproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mihsoproject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mihsoproject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mihsoproject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/mihsoproject.test.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<style>
+    body {
+        background-color: #76c35d;
+    }
+
+    #login {
+        box-shadow: 15px 15px 65px rgba(68, 68, 68, 0.6);
+        background-color: white;
+        padding: 32px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 450px;
+        height: 400px;
+        margin-top: -200px;
+        margin-left: -225px;
+        box-sizing: border-box;
+        border-radius: 12px;
+    }
+
+    .input-fields {
+        width: 70%;
+        height: 35px;
+        margin-left: 15%;
+        border: none;
+        border: 1px solid grey;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        text-align: center;
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+
+    h2 {
+        font-family: sans-serif;
+        margin-left: 15%;
+        font-weight: normal;
+    }
+
+    #btnlogin {
+        border-radius: 12px;
+        border: none;
+        text-align: center;
+        width: 70%;
+        margin-top: 18px;
+        margin-left: 15%;
+        height: 40px;
+        background-color: #00b242;
+        color: #fff;
+        font-size: 25px;
+    }
+
+    #signup {
+        padding-top: 24px;
+        text-align: center;
+    }
+
+    #response {
+        color: red;
+        padding-top: 24px;
+        text-align: center;
+    }
+</style>
+
+
+<!--<script>
+    var socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function(frame) {
+        stompClient.subscribe("/topic/misho",function (r) {
+            console.log(r);
+        },{})
+    })
+</script>-->
+
+
+<div id="login">
+    <form>
+        <h2>Username</h2>
+        <input class="input-fields" id='username' type="text" name="username"><br>
+        <h2>Password</h2>
+        <input class="input-fields" id='password' type="password" name="password">
+    </form>
+    <button id="btnlogin">Log In</button>
+
+    <div id="response"></div>
+    <div id="signup">
+        New Here? <a href="#!signup">Register An Account</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('btnlogin').addEventListener('click', log_in);
+
+    function log_in() {
+        var input_username = document.getElementById('username').value;
+        var input_password = document.getElementById('password').value;
+
+        if (input_username === '' || input_password === '') {
+            document.getElementById('response').innerHTML = 'Please, enter required information';
+        } else {
+            $.ajax({
+                url: '/auth/login',
+                type: 'post',
+                data: {
+                    username: input_username,
+                    password: input_password
+                },
+                success: function (data) {
+                    if (data === "0") {
+                        window.location.href = '/home.html';
+                    } else {
+                        $('#response').html("Error");
+                    }
+                }
+            });
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
