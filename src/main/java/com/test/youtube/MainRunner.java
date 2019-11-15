@@ -33,8 +33,8 @@ public class MainRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         HashMap<String, User> allUsers = userHelper.getUsers();
 
-      /*  for (String username : allUsers.keySet()) {
+        for (String username : allUsers.keySet()) {
             jobRegistry.postJob(new Job(allUsers.get(username), socket, dataHelper, userHelper));
-        }*/
+        }
     }
 }
