@@ -36,6 +36,18 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if ((obj == null) || (obj.getClass() != this.getClass())) {
+            return false;
+        }
+        User userObj = (User) obj;
+        long currentRate = this.getRate().get();
+        long objectUserRate = userObj.getRate().get();
+        return this.getUserName().equals(userObj.getUserName()) && this.getRegion().equals(userObj.getRegion()) &&
+                this.getPassword().equals(userObj.getPassword()) && currentRate == objectUserRate;
+    }
+
+    @Override
     public String toString() {
         return this.userName + " " + this.rate + " " + this.region + " " + this.password + "\n";
     }

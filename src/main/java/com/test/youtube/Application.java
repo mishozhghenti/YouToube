@@ -24,6 +24,8 @@ public class Application implements AsyncConfigurer {
     private String userFileName;
     @Value("${user_data.file}")
     private String userDataFileName;
+    @Value("${google.api.token}")
+    private String googleApiToken;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -46,5 +48,10 @@ public class Application implements AsyncConfigurer {
     @Bean
     public DataHelper getUserDataFileWriter() throws IOException {
         return new DataHelper(userDataFileName);
+    }
+
+    @Bean(name = "googleApiToken")
+    public String googleApiToken() {
+        return this.googleApiToken;
     }
 }

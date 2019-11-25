@@ -14,7 +14,15 @@ public class UserHelper {
         file.createNewFile();
     }
 
+    public void editUser(User newUser) throws IOException {
+        writeUserToFile(newUser);
+    }
+
     public void addNewUser(User newUser) throws IOException {
+        writeUserToFile(newUser);
+    }
+
+    private void writeUserToFile(User newUser) throws IOException {
         FileOutputStream oFile = new FileOutputStream(file, true);
         oFile.write((newUser.toString()).getBytes());
     }

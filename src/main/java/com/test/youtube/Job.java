@@ -27,29 +27,49 @@ public class Job {
     UserHelper userHelper;
     List<String> history = new ArrayList<>();
     private SimpMessagingTemplate socket;
+    String googleApiToken;
     String jobId;
     long lastRunTime = 0;
     private User user;
 
+    private String videoRequestURLFormat = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&chart=mostPopular&regionCode=%s&key=%s";
+    private String commentRequestURLFormat = "https://www.googleapis.com/youtube/v3/commentThreads?chart=mostPopular&part=snippet&videoId=%s&key=%s&textFormat=plainText";
+    private String videoResponseURLFormat = "https://www.youtube.com/embed/%s";
 
-    public Job(User user, SimpMessagingTemplate socket, DataHelper dataHelper, UserHelper userHelper) {
+    public Job(User user, SimpMessagingTemplate socket, DataHelper dataHelper, UserHelper userHelper, String googleApiToken) {
         this.jobId = UUID.randomUUID().toString();
         this.user = user;
         this.socket = socket;
         this.dataHelper = dataHelper;
         this.userHelper = userHelper;
+        this.googleApiToken = googleApiToken;
     }
 
     private String process() throws IOException {
         Record newRecord = new Record("NULL", this.getUser().getUserName(), "NULL", "NULL");
         RestTemplate restTemplate = new RestTemplate();
         try {
-            String response = restTemplate.getForObject("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&chart=mostPopular&regionCode=" + this.getUser().getRegion() + "&key=AIzaSyDZUcUiWSb2Kk2P3qIPxjMxxlnYnZyI7RQ", String.class);
-            JSONObject userJSON = new JSONObject(response);
-            JSONArray jsonArray = (JSONArray) userJSON.get("items");
-            JSONObject currentVideoDetails = (JSONObject) jsonArray.get(0);
+            String videoResponse = restTemplate.getForObject(String.format(videoRequestURLFormat, this.getUser().getRegion(), this.googleApiToken), String.class);
+            JSONObject userJSON = new JSONObject(videoResponse);
+            JSONArray videoJsonArray = (JSONArray) userJSON.get("items");
+            JSONObject currentVideoDetails = (JSONObject) videoJsonArray.get(0);
             String videoID = currentVideoDetails.getString("id");
-            newRecord = new Record(UUID.randomUUID().toString(), this.getUser().getUserName(), "https://www.youtube.com/embed/" + videoID, "$COMMENT_URL$");
+            String comment = "$COMMENT_URL$";
+            try {
+                String commentResponse = restTemplate.getForObject(String.format(commentRequestURLFormat, videoID, this.googleApiToken), String.class);
+                JSONObject commentJSON = new JSONObject(commentResponse);
+                JSONArray commentJsonArray = (JSONArray) commentJSON.get("items");
+
+                JSONObject currentObject = (JSONObject) commentJsonArray.get(0);
+                JSONObject snippet = (JSONObject) currentObject.get("snippet");
+
+                JSONObject topLevelCommentJSON = (JSONObject) snippet.get("topLevelComment");
+
+                JSONObject snpJSON = (JSONObject) topLevelCommentJSON.get("snippet");
+                comment = snpJSON.getString("textDisplay").replaceAll("[\\n\\t ]", "");
+            } catch (Exception ignored) {
+            }
+            newRecord = new Record(UUID.randomUUID().toString(), this.getUser().getUserName(), String.format(videoResponseURLFormat, videoID), comment);
             dataHelper.addData(newRecord);
         } catch (Exception e) {
             e.getStackTrace();
@@ -73,7 +93,7 @@ public class Job {
 
     public void changeParams(User updated) {
         try {
-            this.userHelper.addNewUser(updated); // saves to file==db
+            this.userHelper.editUser(updated); // saves to file==db
             this.getUser().setRate(updated.getRate().get());
             this.getUser().setRegion(updated.getRegion());
         } catch (Exception e) {

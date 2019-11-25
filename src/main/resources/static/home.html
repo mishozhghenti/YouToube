@@ -444,10 +444,9 @@
 
     function displayHistory(data) {
         for (var key in data) {
-            div.innerHTML += "<iframe width=\"560\" height=\"315\" src=\"" + data[key].videoURL + "\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe><br/>";
+            div.innerHTML += "<iframe width=\"560\" height=\"315\" src=\"" + data[key].videoURL + "\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe><br/>" + data[key].topCommentURL + "<br/>";
         }
     }
-
 
     function leaching(dict, username) {
         var socket = new SockJS('/ws');
@@ -457,7 +456,7 @@
                 var message = r.body;
                 if (!(message in dict)) {
                     var splited = message.split(" ");
-                    div.innerHTML = "<iframe width=\"560\" height=\"315\" src=\"" + splited[2] + "\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe><br/>" + div.innerHTML;
+                    div.innerHTML = "<iframe width=\"560\" height=\"315\" src=\"" + splited[2] + "\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe><br/>" + splited[3] + "<br/>" + div.innerHTML;
                 }
             }, {});
         });

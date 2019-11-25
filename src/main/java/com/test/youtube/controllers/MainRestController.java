@@ -6,6 +6,7 @@ import com.test.youtube.model.User;
 import com.test.youtube.repository.DataHelper;
 import com.test.youtube.repository.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +27,14 @@ public class MainRestController {
     @Autowired
     UserHelper userHelper;
 
+    @Autowired
+    @Qualifier("googleApiToken")
+    String googleApiToken;
+
     @GetMapping("/startJob")
     public String startJob(HttpServletRequest req) {
         User currentUser = (User) req.getSession().getAttribute("user");
-        jobRegistry.postJob(new Job(currentUser, socket, dataHelper, userHelper));
+        jobRegistry.postJob(new Job(currentUser, socket, dataHelper, userHelper, googleApiToken));
         return "OK";
     }
 

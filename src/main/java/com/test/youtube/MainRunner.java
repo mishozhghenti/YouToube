@@ -4,6 +4,7 @@ import com.test.youtube.model.User;
 import com.test.youtube.repository.DataHelper;
 import com.test.youtube.repository.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -22,6 +23,10 @@ public class MainRunner implements ApplicationRunner {
     @Autowired
     DataHelper dataHelper;
 
+    @Autowired
+    @Qualifier("googleApiToken")
+    String googleApiToken;
+
 
     /**
      * When application is loaded this method gets all users and starts jobs one by one
@@ -34,7 +39,7 @@ public class MainRunner implements ApplicationRunner {
         HashMap<String, User> allUsers = userHelper.getUsers();
 
         for (String username : allUsers.keySet()) {
-            jobRegistry.postJob(new Job(allUsers.get(username), socket, dataHelper, userHelper));
+            jobRegistry.postJob(new Job(allUsers.get(username), socket, dataHelper, userHelper, googleApiToken));
         }
     }
 }
